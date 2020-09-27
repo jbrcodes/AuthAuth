@@ -1,7 +1,9 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    username VARCHAR(30) NOT NULL PRIMARY KEY,
-    password VARCHAR(200) NOT NULL
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL
     
     -- first_name text NOT NULL,
     -- last_name text NOT NULL,

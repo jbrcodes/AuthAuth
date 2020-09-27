@@ -2,6 +2,11 @@ NOTES
 =====
 
 
+## To Do
+
+- client side
+- create services/api with request(), returns response
+
 
 ## Installation
 

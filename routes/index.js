@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { ensureLoggedIn } = require('../middleware/auth');
+const { ensureUserLoggedIn } = require('../middleware/guards');
 
 
 /* GET home page. */
@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.send({ message: 'Welcome' });
 });
 
-router.get('/secret', ensureLoggedIn, function(req, res, next) {
+router.get('/secret', ensureUserLoggedIn, function(req, res, next) {
   res.send({ message: 'Here is your secret' });
 });
 

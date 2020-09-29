@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const { SECRET_KEY } = require("../config");
 
 
@@ -14,10 +14,14 @@ const { SECRET_KEY } = require("../config");
 
 function ensureUserLoggedIn(req, res, next) {
     let token = req.headers['x-access-token'];
-    if (!token) {
-        next( createError(401, 'Unauthorized') );
-    } else {
+
+    try {
+        // Throws error on invalid/missing token
+        jwt.verify(token, SECRET_KEY);
+        // If we get here, valid token passed
         next();
+    } catch (err) {
+        res.status(401).send({ error: 'Unauthorized' });
     }
 }
 
@@ -34,12 +38,12 @@ function ensureSameUser(req, res, next) {
         // Throws error on invalid/missing token
         let payload = jwt.verify(token, SECRET_KEY);
         if (payload.userId !== Number(req.params.userId)) {
-            next( createError(401, 'Unauthorized') );
+            res.status(401).send({ error: 'Unauthorized' });
         } else {
             next();
         }
     } catch (err) {
-        next( createError(401, 'Unauthorized') );
+        res.status(401).send({ error: 'Unauthorized' });
     }
 }
 

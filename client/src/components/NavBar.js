@@ -16,36 +16,40 @@ function NavBar(props) {
                     <li className="nav-item active">
                         <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/">Products</NavLink>
-                    </li>
+                    {
+                        props.token && (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/secret">Secret</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/users/2/profile">two's Profile</NavLink>
+                                </li>
+                            </>
+                        )
+                    }
+
                 </ul>
             </div>
 
             {
-                props.user === undefined
-                ?   
-                    (
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/register">Register</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/login">Login</NavLink>
-                            </li>
-                        </ul>
-                    )
-                :
-                    (
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to={'/profile/'+props.user}>Profile</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/logout">Logout</NavLink>
-                            </li>
-                        </ul>
-                    )
+                props.token
+                    ?   
+                        (
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/logout">Logout</NavLink>
+                                </li>
+                            </ul>
+                        )
+                    :
+                        (
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                                </li>
+                            </ul>
+                        )
             }
         </nav>
     );

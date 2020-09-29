@@ -11,11 +11,12 @@ function LoginView(props) {
 
     function handleChange(event) {
         let { name, value } = event.target;
-        setFormData({ [name]: value });
+        setFormData({ ...formData, [name]: value });
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+        props.onSubmit(formData.username, formData.password);
     }
 
     return (

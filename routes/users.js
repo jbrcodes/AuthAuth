@@ -34,7 +34,8 @@ router.post('/login', async (req, res, next) => {
             res.status(400).send({ error: 'Login failed' });
         } else {
             let row = results.data[0];
-            if ( await bcrypt.compare(password, row.password) ) {
+            let passwordsEqual = await bcrypt.compare(password, row.password);
+            if (passwordsEqual) {
                 let payload = { userId: row.id };
                 let token = jwt.sign(payload, SECRET_KEY);
                 // Return the token and some other useful stuff

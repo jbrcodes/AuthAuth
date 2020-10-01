@@ -1,61 +1,73 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
-const INIT_FORM_DATA = {
-    username: '',
-    password: ''
-}
+class LoginView extends React.Component {
 
-function LoginView(props) {
-    let [formData, setFormData] = useState(INIT_FORM_DATA);
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
 
-    function handleChange(event) {
+    handleChange(event) {
         let { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
+        this.setState({ [name]: value });
     }
 
-    function handleSubmit(event) {
+    handleSubmit(event) {
         event.preventDefault();
-        props.onSubmit(formData.username, formData.password);
+        this.props.login(this.state.username, this.state.password);
     }
 
-    return (
-        <div className="LoginView row">
-            <div className="col-4 offset-4">
-                <h2>Login</h2>
-                
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <div className="form-group">
-                        <label>Username
-                            <input
-                                type="text"
-                                name="username"
-                                required
-                                className="form-control"
-                                value={formData.username}
-                                onChange={(e) => handleChange(e)}
-                            />
-                        </label>
-                    </div>
+    render() {
+        return (
+            <div className="LoginView row">
+                <div className="col-4 offset-4">
+                    <h2>Login</h2>
+                    
+                    {/* Login error message */}
+                    {
+                        this.props.error && (
+                            <div className="alert alert-danger">{this.props.error}</div>
+                        )
+                    }
 
-                    <div className="form-group">
-                        <label>Password
-                            <input
-                                type="password"
-                                name="password"
-                                required
-                                className="form-control"
-                                value={formData.password}
-                                onChange={(e) => handleChange(e)}
-                            />
-                        </label>
-                    </div>
-
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                    <form onSubmit={(e) => this.handleSubmit(e)}>
+                        <div className="form-group">
+                            <label>Username
+                                <input
+                                    type="text"
+                                    name="username"
+                                    required
+                                    className="form-control"
+                                    value={this.state.username}
+                                    onChange={(e) => this.handleChange(e)}
+                                />
+                            </label>
+                        </div>
+    
+                        <div className="form-group">
+                            <label>Password
+                                <input
+                                    type="password"
+                                    name="password"
+                                    required
+                                    className="form-control"
+                                    value={this.state.password}
+                                    onChange={(e) => this.handleChange(e)}
+                                />
+                            </label>
+                        </div>
+    
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
 }
 
 export default LoginView;

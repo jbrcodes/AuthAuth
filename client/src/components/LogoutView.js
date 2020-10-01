@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 
 function LogoutView(props) {
-    props.setToken('');
+    props.logout();
 
     return <Redirect to="/" />;
 }

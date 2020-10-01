@@ -1,63 +1,79 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+
+import Auth from './helpers/Auth';
+import Api from './helpers/Api';
+
 import NavBar from './components/NavBar';
-import MyApi from './services/MyApi';
+import PrivateRoute from './components/PrivateRoute';
+
 import LoginView from './components/LoginView';
-import LogoutView from './components/LogoutView';
 import ErrorView from './components/ErrorView';
 import SecretView from './components/SecretView';
 import ProfileView from './components/ProfileView';
 
 
-function App() {
-    let [token, setToken] = useState( localStorage['token'] );
+class App extends React.Component {
 
-    function mySetToken(token) {
-        localStorage['token'] = token;
-        setToken(token);
-    }
-
-    async function doLogin(username, password) {
-        let body = { username, password };
-        let response = await MyApi.request('POST', '/users/login', body);
-        if (response.ok) {
-            console.log('data:', response.data);
-            mySetToken(response.data.token);
-            // localStorage['token'] = response.data.token;
-        } else {
-            console.log('error', response.error);
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: localStorage.userId,
+            loginError: ''
         }
     }
 
-    return (
-        <div className="App">
-            <NavBar token={token} />
-            <div className="container">
-                <Switch>
-                    <Route path="/" exact>
-                        <h2>HomeView</h2>
-                    </Route>
+    async doLogin(username, password) {
+        let body = { username, password };
+        let response = await Api.request('POST', '/users/login', body);
+        if (response.ok) {
+            Auth.loginUser(response.data.token, response.data.userId);
+            this.setState({ userId: response.data.userId });
+            this.props.history.push('/');
+        } else {
+            this.setState({ loginError: response.error });
+        }
+    }
 
-                    <Route path="/login" exact>
-                        <LoginView onSubmit={(u, p) => doLogin(u, p)} />
-                    </Route>
+    doLogout() {
+        Auth.logoutUser();
+        this.setState({ userId: '' });
+        this.props.history.push('/');
+    }
 
-                    <Route path="/logout" exact>
-                        <LogoutView setToken={mySetToken} />
-                    </Route>
+    render() {
+        return (
+            <div className="App">
+                <NavBar userId={this.state.userId} logout={() => this.doLogout()} />
+                <div className="container">
+                    <Switch>
+                        <Route path="/" exact>
+                            <h2>Home View</h2>
+                        </Route>
+    
+                        <PrivateRoute path="/secret" exact>
+                            <SecretView />
+                        </PrivateRoute>
+    
+                        <PrivateRoute 
+                            path="/users/:userId/profile" 
+                            exact 
+                            component={ProfileView} 
+                        />
+    
+                        <Route path="/login" exact>
+                            <LoginView login={(u, p) => this.doLogin(u, p)} error={this.state.loginError} />
+                        </Route>
 
-                    <Route path="/secret" exact>
-                        <SecretView token={token} />
-                    </Route>
-
-                    <Route path="/users/:userId/profile" exact component={ProfileView} />
-
-                    <ErrorView code="404" message="Not Found" />
-                </Switch>
+                        <ErrorView code="404" text="Not Found" />
+                    </Switch>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
 }
 
-export default App;
+export default withRouter(App);

@@ -1,6 +1,5 @@
 import React from 'react';
-import MyApi from '../services/MyApi';
-import ErrorView from './ErrorView';
+import Api from '../helpers/Api';
 
 
 class SecretView extends React.Component {
@@ -11,15 +10,13 @@ class SecretView extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.token) {
-            let response = await MyApi.request('GET', '/secret');
-            this.setState({ secret: response.data.message });
-        }
+        let response = await Api.request('GET', '/secret');
+        this.setState({ secret: response.data.message });
     }
 
     render() {
-        if (!this.props.token) {
-            return <ErrorView code="401" message="Unauthorized" />
+        if (!this.state.secret) {
+            return <h2>Loading...</h2>;
         }
 
         return (

@@ -12,6 +12,10 @@ class Auth {
         localStorage.clear();
     }
     
+    static getToken() {
+        return ('token' in localStorage) ? localStorage.token : '';
+    }
+    
     static getUserId() {
         return ('userId' in localStorage) ? localStorage.userId : '';
     }

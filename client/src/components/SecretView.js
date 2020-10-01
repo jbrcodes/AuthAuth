@@ -11,7 +11,12 @@ class SecretView extends React.Component {
 
     async componentDidMount() {
         let response = await Api.request('GET', '/secret');
-        this.setState({ secret: response.data.message });
+        if (response.ok) {
+            this.setState({ secret: response.data.message });
+        } else {
+            console.log('GET /secret error:', response.error);
+        }
+
     }
 
     render() {

@@ -20,7 +20,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: localStorage.userId,
+            userId: Auth.getUserId(),
             loginError: ''
         }
     }

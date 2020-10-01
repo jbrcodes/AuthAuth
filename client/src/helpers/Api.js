@@ -1,5 +1,7 @@
-const BASE_URL = 'http://localhost:5000';
+import Auth from './Auth';
 
+
+const BASE_URL = 'http://localhost:5000';
 
 class Api {
 
@@ -16,8 +18,9 @@ class Api {
         }
 
         // Add JWT token (if exists)
-        if ('token' in localStorage) {
-            options.headers['x-access-token'] = localStorage.token;
+        let token = Auth.getToken();
+        if (token) {
+            options.headers['x-access-token'] = token;
         }
 
         /**

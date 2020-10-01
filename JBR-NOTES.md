@@ -4,10 +4,6 @@ NOTES
 
 ## To Do
 
-- client side
-    login form
-    
-- create services/api with request(), returns response
 
 
 ## Installation

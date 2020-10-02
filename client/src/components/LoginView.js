@@ -27,7 +27,7 @@ class LoginView extends React.Component {
                 <div className="col-4 offset-4">
                     <h2>Login</h2>
                     
-                    {/* Login error message */}
+                    {/* Login error message displayed here */}
                     {
                         this.props.error && (
                             <div className="alert alert-danger">{this.props.error}</div>

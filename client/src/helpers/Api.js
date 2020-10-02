@@ -44,6 +44,7 @@ class Api {
             response.data = await response.json();
             console.log('fetch response:', response);
             if (!response.ok) {
+                // Use error message from JSON returned by server, else use fetch() error code/text
                 response.error = response.data.error || `${response.status}: ${response.statusText}`;
             }
         } catch (err) {

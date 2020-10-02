@@ -1,4 +1,7 @@
-// auth-auth helper functions
+/**
+ * Auth helper methods
+ * All localStorage implementation is here
+ **/
 
 
 class Auth {

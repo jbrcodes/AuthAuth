@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import Auth from './helpers/Auth';
@@ -20,7 +20,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: Auth.getUserId(),
+            userId: Auth.getUserId(),  // is userId in localStorage?
             loginError: ''
         }
     }
@@ -30,7 +30,7 @@ class App extends React.Component {
         let response = await Api.request('POST', '/users/login', body);
         if (response.ok) {
             Auth.loginUser(response.data.token, response.data.userId);
-            this.setState({ userId: response.data.userId });
+            this.setState({ userId: response.data.userId, loginError: '' });
             this.props.history.push('/');
         } else {
             this.setState({ loginError: response.error });
@@ -38,7 +38,7 @@ class App extends React.Component {
     }
 
     doLogout() {
-        Auth.logoutUser();
+        Auth.logoutUser();  // remove token/userId from localStorage
         this.setState({ userId: '' });
         this.props.history.push('/');
     }
@@ -64,7 +64,10 @@ class App extends React.Component {
                         />
     
                         <Route path="/login" exact>
-                            <LoginView login={(u, p) => this.doLogin(u, p)} error={this.state.loginError} />
+                            <LoginView 
+                                login={(u, p) => this.doLogin(u, p)} 
+                                error={this.state.loginError} 
+                            />
                         </Route>
 
                         <ErrorView code="404" text="Not Found" />

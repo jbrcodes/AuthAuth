@@ -27,7 +27,7 @@ class App extends React.Component {
 
     async doLogin(username, password) {
         let body = { username, password };
-        let response = await Api.request('POST', '/users/login', body);
+        let response = await Api.request('POST', '/login', body);
         if (response.ok) {
             Auth.loginUser(response.data.token, response.data.userId);
             this.setState({ userId: response.data.userId, loginError: '' });

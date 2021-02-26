@@ -1,72 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
-class LoginView extends React.Component {
+function LoginView(props) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: ''
+    function handleChange(event) {
+        let { name, value } = event.target;
+        switch (name) {
+            case 'usernameInput':
+                setUsername(value);
+                break;
+            case 'passwordInput':
+                setPassword(value);
+                break;
+            default:
+                break;
         }
     }
 
-    handleChange(event) {
-        let { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
-
-    handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        props.onSubmit(username, password);
     }
 
-    render() {
-        return (
-            <div className="LoginView row">
-                <div className="col-4 offset-4">
-                    <h2>Login</h2>
-                    
-                    {/* Login error message displayed here */}
-                    {
-                        this.props.error && (
-                            <div className="alert alert-danger">{this.props.error}</div>
-                        )
-                    }
+    return (
+        <div className="LoginView row">
+            <div className="col-4 offset-4">
+                <h2>Login</h2>
+                
+                {/* Login error message displayed here */}
+                {
+                    props.error && (
+                        <div className="alert alert-danger">{props.error}</div>
+                    )
+                }
 
-                    <form onSubmit={(e) => this.handleSubmit(e)}>
-                        <div className="form-group">
-                            <label>Username
-                                <input
-                                    type="text"
-                                    name="username"
-                                    required
-                                    className="form-control"
-                                    value={this.state.username}
-                                    onChange={(e) => this.handleChange(e)}
-                                />
-                            </label>
-                        </div>
-    
-                        <div className="form-group">
-                            <label>Password
-                                <input
-                                    type="password"
-                                    name="password"
-                                    required
-                                    className="form-control"
-                                    value={this.state.password}
-                                    onChange={(e) => this.handleChange(e)}
-                                />
-                            </label>
-                        </div>
-    
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Username
+                            <input
+                                type="text"
+                                name="usernameInput"
+                                required
+                                className="form-control"
+                                value={username}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password
+                            <input
+                                type="password"
+                                name="passwordInput"
+                                required
+                                className="form-control"
+                                value={password}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
             </div>
-        );
-    }
+        </div>
+    );
 
 }
 

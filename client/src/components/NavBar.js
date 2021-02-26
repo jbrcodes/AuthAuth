@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 function NavBar(props) {
@@ -15,7 +15,10 @@ function NavBar(props) {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
+                        <NavLink className="nav-link" to="/">Home</NavLink>
+                    </li>
+                    <li className="nav-item active">
+                        <NavLink className="nav-link" to="/users" exact>Users</NavLink>
                     </li>
                     {
                         props.userId && (
@@ -43,7 +46,7 @@ function NavBar(props) {
                                     <span
                                         className="nav-link" 
                                         style={{ cursor: 'pointer' }}
-                                        onClick={(e) => props.logout()}
+                                        onClick={props.logout}
                                     >Logout</span>
                                 </li>
                             </ul>

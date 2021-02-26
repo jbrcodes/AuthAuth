@@ -1,57 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Api from '../helpers/Api';
-import ErrorView from './ErrorView';
 
 
-class ProfileView extends React.Component {
+function ProfileView(props) {
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState('');
+    let { userId } = useParams();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: null,
-            statusCode: 0,
-            statusText: ''
-        };
+    useEffect(() => {
+        async function fetchProfile() {
+            let response = await Api.request('GET', `/users/${userId}/profile`);
+            if (response.ok) {
+                setUser(response.data);
+                setError('');
+            } else {
+                setUser(null);
+                setError(`Error ${response.status}: ${response.statusText}`);
+            }
+        }
+        fetchProfile();
+    }, [userId]);
+
+    if (error) {
+        return <h2 style={{ color: 'red' }}>{error}</h2>
     }
 
-    async componentDidMount() {
-        let userId = this.props.match.params.userId;
-        let response = await Api.request('GET', `/users/${userId}/profile`);
-        if (response.ok) {
-            this.setState({
-                user: response.data,
-                statusCode: 200,
-                statusText: ''
-            });
-        } else {
-            this.setState({
-                user: null,
-                statusCode: response.status,
-                statusText: response.statusText
-            });
-        }
+    if (!user) {
+        return <h2>Loading...</h2>;
     }
 
-    render() {
-        if (this.state.statusCode !== 200) {
-            return <ErrorView code={this.state.statusCode} text={this.state.statusText} />
-        }
-
-        if (!this.state.user) {
-            return <h2>Loading...</h2>;
-        }
-
-        let u = this.state.user;
-        return (
-            <div className="ProfileView">
-                <h2>Profile View</h2>
-                ID: {u.id}<br />
-                Username: {u.username}<br />
-                Email: {u.email}
-            </div>
-        );
-    }
-
+    return (
+        <div className="ProfileView">
+            <h1>Profile View</h1>
+            ID: {user.id}<br />
+            Username: {user.username}<br />
+            Email: {user.email}
+        </div>
+    );
 }
+
 
 export default ProfileView;

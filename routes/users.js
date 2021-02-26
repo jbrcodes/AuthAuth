@@ -10,7 +10,7 @@ const db = require("../model/helper");
  **/
 
 router.get('/', async function(req, res, next) {
-    let sql = 'SELECT username FROM users ORDER BY username';
+    let sql = 'SELECT * FROM users ORDER BY username';
     try {
         let results = await db(sql);
         res.send(results.data);

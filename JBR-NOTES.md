@@ -4,7 +4,7 @@ NOTES
 
 ## To Do
 
-- change /secret to /members-only
+- remove passwords from /users
 - rename Auth to... Local ?
 - what to do with ErrorView?
 - change Api to have [generic] calls

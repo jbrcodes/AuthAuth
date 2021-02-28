@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Api from '../helpers/Api';
 
 
-function SecretView(props) {
+function MembersOnlyView(props) {
     const [memberMsg, setMemberMsg] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
         async function fetchMemberMsg() {
-            let response = await Api.request('GET', '/secret');
+            let response = await Api.request('GET', '/members-only');
             if (response.ok) {
                 setMemberMsg(response.data.message);
                 setErrorMsg('');
@@ -29,11 +29,11 @@ function SecretView(props) {
     }
 
     return (
-        <div className="SecretView">
+        <div className="MembersOnlyView">
             <h1>Members Only</h1>
             <p>{memberMsg}</p>
         </div>
     );
 }
 
-export default SecretView;
+export default MembersOnlyView;

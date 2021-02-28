@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
  * GET /members-only
  **/
 
-router.get('/secret', ensureUserLoggedIn, function(req, res, next) {
-    res.send({ message: 'Here is your secret' });
+router.get('/members-only', ensureUserLoggedIn, function(req, res, next) {
+    res.send({ message: 'Here is your "members only" content' });
 });
 
 

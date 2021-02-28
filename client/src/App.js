@@ -10,7 +10,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 import LoginView from './components/LoginView';
 import ErrorView from './components/ErrorView';
-import SecretView from './components/SecretView';
+import MembersOnlyView from './components/MembersOnlyView';
 import ProfileView from './components/ProfileView';
 import UsersView from './components/UsersView';
 
@@ -63,8 +63,8 @@ function App() {
                         <ProfileView />
                     </PrivateRoute>
 
-                    <PrivateRoute path="/secret" exact>
-                        <SecretView />
+                    <PrivateRoute path="/members-only" exact>
+                        <MembersOnlyView />
                     </PrivateRoute>
 
                     <Route path="/login" exact>

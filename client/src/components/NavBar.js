@@ -24,7 +24,7 @@ function NavBar(props) {
                         props.userId && (
                             <>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/secret">Secret</NavLink>
+                                    <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to={`/users/${props.userId}/profile`}>Profile</NavLink>

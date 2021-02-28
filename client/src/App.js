@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 
-import Auth from './helpers/Auth';
+import Local from './helpers/Local';
 import Api from './helpers/Api';
 
 import NavBar from './components/NavBar';
@@ -16,7 +16,7 @@ import UsersView from './components/UsersView';
 
 
 function App() {
-    const [userId, setUserId] = useState(Auth.getUserId());
+    const [userId, setUserId] = useState(Local.getUserId());
     const [flashError, setFlashError] = useState('');
     const history = useHistory();
 
@@ -24,7 +24,7 @@ function App() {
         let body = { username, password };
         let response = await Api.request('POST', '/login', body);
         if (response.ok) {
-            Auth.loginUser(response.data.token, response.data.userId);
+            Local.saveUserInfo(response.data.token, response.data.userId);
             setUserId(response.data.userId);
             setFlashError('');
             history.push('/');
@@ -34,7 +34,7 @@ function App() {
     }
 
     function doLogout() {
-        Auth.logoutUser();  // remove token/userId from localStorage
+        Local.removeUserInfo();  // remove token/userId from localStorage
         setUserId('');
         history.push('/');
     }

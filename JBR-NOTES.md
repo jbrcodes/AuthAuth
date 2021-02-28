@@ -4,8 +4,6 @@ NOTES
 
 ## To Do
 
-- remove passwords from /users
-- rename Auth to... Local ?
 - what to do with ErrorView?
 - change Api to have [generic] calls
 - move profile to right, make it Profile (user1)

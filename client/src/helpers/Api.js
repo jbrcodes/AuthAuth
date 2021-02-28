@@ -1,4 +1,4 @@
-import Auth from './Auth';
+import Local from './Local';
 
 
 const BASE_URL = 'http://localhost:5000';
@@ -18,7 +18,7 @@ class Api {
         }
 
         // Add JWT token (if exists)
-        let token = Auth.getToken();
+        let token = Local.getToken();
         if (token) {
             options.headers['x-access-token'] = token;
         }

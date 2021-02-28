@@ -13,7 +13,9 @@ router.get('/', async function(req, res, next) {
     let sql = 'SELECT * FROM users ORDER BY username';
     try {
         let results = await db(sql);
-        res.send(results.data);
+        let users = results.data;
+        users.forEach(u => delete u.password);  // don't send passwords
+        res.send(users);
     } catch (err) {
         next(err);
     }

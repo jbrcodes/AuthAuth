@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import Auth from '../helpers/Auth';
+import Local from '../helpers/Local';
 
 
 function PrivateRoute({ exact, path, component, children }) {
-    let userId = Auth.getUserId();
+    let userId = Local.getUserId();
     if (!userId) {
         return <Redirect to="/login" />;
     }

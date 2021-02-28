@@ -4,10 +4,10 @@ NOTES
 
 ## To Do
 
-- what to do with ErrorView?
 - change Api to have [generic] calls
 - move profile to right, make it Profile (user1)
 - document code & install
+- rename PrivateRoute => ProtectedRoute ?
 - add proxy 5000 to package.json ? Or SERVER_URL?
 - add model/database.js ?
 - remove my _response() ??

@@ -53,12 +53,6 @@ function App() {
                         <UsersView />
                     </Route>
 
-                    {/* <PrivateRoute 
-                        path="/users/:userId/profile" 
-                        exact 
-                        component={ProfileView} 
-                    /> */}
-
                     <PrivateRoute path="/users/:userId/profile" exact>
                         <ProfileView />
                     </PrivateRoute>

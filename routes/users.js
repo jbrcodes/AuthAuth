@@ -23,11 +23,11 @@ router.get('/', async function(req, res, next) {
 
 
 /**
- * Get the user's profile page.
+ * Get one user.
  * A user can only see his/her own profile page.
  **/
 
-router.get('/:userId/profile', ensureSameUser, async function(req, res, next) {
+router.get('/:userId', ensureSameUser, async function(req, res, next) {
     let { userId } = req.params;
     let sql = 'SELECT * FROM users WHERE id = ' + userId;
     

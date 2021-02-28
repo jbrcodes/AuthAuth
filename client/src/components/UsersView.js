@@ -9,7 +9,7 @@ function UsersView(props) {
 
     useEffect(() => {
         async function fetchUsers() {
-            let response = await Api.request('GET', '/users');
+            let response = await Api.getUsers();
             if (response.ok) {
                 setUsers(response.data);
                 setErrorMsg('');

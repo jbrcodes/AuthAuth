@@ -21,15 +21,14 @@ function App() {
     const history = useHistory();
 
     async function doLogin(username, password) {
-        let body = { username, password };
-        let response = await Api.request('POST', '/login', body);
+        let response = await Api.loginUser(username, password);
         if (response.ok) {
             Local.saveUserInfo(response.data.token, response.data.userId);
             setUserId(response.data.userId);
             setFlashError('');
             history.push('/');
         } else {
-            setFlashError(response.error);
+            setFlashError('Login failed');
         }
     }
 
@@ -53,7 +52,7 @@ function App() {
                         <UsersView />
                     </Route>
 
-                    <PrivateRoute path="/users/:userId/profile" exact>
+                    <PrivateRoute path="/users/:userId" exact>
                         <ProfileView />
                     </PrivateRoute>
 

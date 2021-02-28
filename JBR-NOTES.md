@@ -4,13 +4,11 @@ NOTES
 
 ## To Do
 
-- change Api to have [generic] calls
 - move profile to right, make it Profile (user1)
+- clean up <PrivateRoute> and LoggedInRoute
 - document code & install
-- rename PrivateRoute => ProtectedRoute ?
 - add proxy 5000 to package.json ? Or SERVER_URL?
-- add model/database.js ?
-- remove my _response() ??
+- flashError ?
 
 
 ## Installation

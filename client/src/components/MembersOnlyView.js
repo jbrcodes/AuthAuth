@@ -8,17 +8,17 @@ function MembersOnlyView(props) {
 
     useEffect(() => {
         async function fetchMemberMsg() {
-            let response = await Api.request('GET', '/members-only');
+            let response = await Api.getContent('/members-only');
             if (response.ok) {
                 setMemberMsg(response.data.message);
                 setErrorMsg('');
             } else {
                 setMemberMsg('');
-                setErrorMsg(`Error ${response.status}: ${response.statusText}`);
+                setErrorMsg(response.error);
             }
         }
         fetchMemberMsg();
-    });
+    }, []);
 
     if (errorMsg) {
         return <h2 style={{ color: 'red' }}>{errorMsg}</h2>

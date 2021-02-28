@@ -27,7 +27,7 @@ function NavBar(props) {
                                     <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.userId}/profile`}>Profile</NavLink>
+                                    <NavLink className="nav-link" to={`/users/${props.userId}`}>Profile</NavLink>
                                 </li>
                             </>
                         )

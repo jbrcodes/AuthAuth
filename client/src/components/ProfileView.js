@@ -10,13 +10,13 @@ function ProfileView(props) {
 
     useEffect(() => {
         async function fetchProfile() {
-            let response = await Api.request('GET', `/users/${userId}/profile`);
+            let response = await Api.getUser(userId);
             if (response.ok) {
                 setUser(response.data);
                 setError('');
             } else {
                 setUser(null);
-                setError(`Error ${response.status}: ${response.statusText}`);
+                setError(response.error);
             }
         }
         fetchProfile();

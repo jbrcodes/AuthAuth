@@ -5,55 +5,124 @@ const BASE_URL = 'http://localhost:5000';
 
 class Api {
 
-    static async request(method, endpoint, body = null) {
-        // Define basic options
+    /**
+    * Log in a user
+     */
+    
+    static async loginUser(username, password) {
+        // Prepare URL and options
+        let url = `${BASE_URL}/login`;
+        let body = { username, password };
         let options = { 
-            method: method,
-            headers: { 'Content-Type': 'application/json' }
-         };
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
 
-        // Add body (if applicable)
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
-
-        // Add JWT token (if exists)
+        // Add JWT token (if it exists)
         let token = Local.getToken();
         if (token) {
             options.headers['x-access-token'] = token;
         }
 
-        /**
-         * Do the fetch() and create a "unified" response.
-         * If server response is received:
-         *      response.ok == true if response.status in 200 range
-         *      response.status has status code
-         *      response.statusText has status text
-         *      response.data has data returned by server
-         *      response.error is response.status + response.statusText
-         * If server did not respond:
-         *      response.ok = false
-         *      response.status = 0
-         *      response.data = null
-         *      response.error is exception error message
-         **/
-
+        // Fetch!
         let response;
         try {
-            response = await fetch(BASE_URL+endpoint, options);
-            response.data = await response.json();
-            console.log('fetch response:', response);
-            if (!response.ok) {
-                // Use error message from JSON returned by server, else use fetch() error code/text
-                response.error = response.data.error || `${response.status}: ${response.statusText}`;
+            response = await fetch(url, options);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
             }
         } catch (err) {
-            response = {
-                ok: false,
-                data: null,
-                status: 0,
-                error: `${err.name}: ${err.message}`
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
+    /**
+     * Get all users 
+     **/
+
+    static async getUsers() {
+        // Prepare URL and options
+        let url = `${BASE_URL}/users`;
+        let options = { method: 'GET' };
+
+        // Fetch!
+        let response;
+        try {
+            response = await fetch(url, options);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
             }
+        } catch (err) {
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
+    /**
+     * Get data for user with ID 'userId'
+     */
+
+    static async getUser(userId) {
+        // Prepare URL and options
+        let url = `${BASE_URL}/users/${userId}`;
+        let options = { method: 'GET', headers: {} };
+
+        // Add JWT token (if it exists)
+        let token = Local.getToken();
+        if (token) {
+            options.headers['x-access-token'] = token;
+        }
+
+        // Fetch!
+        let response;
+        try {
+            response = await fetch(url, options);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
+            }
+        } catch (err) {
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
+    /**
+     * General purpose GET
+     */
+
+    static async getContent(route) {
+        // Prepare URL and options
+        let url = `${BASE_URL}${route}`;
+        let options = { method: 'GET', headers: {} };
+
+        // Add JWT token (if it exists)
+        let token = Local.getToken();
+        if (token) {
+            options.headers['x-access-token'] = token;
+        }
+
+        // Fetch!
+        let response;
+        try {
+            response = await fetch(url, options);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
+            }
+        } catch (err) {
+            response = { ok: false, error: err.message };
         }
 
         return response;

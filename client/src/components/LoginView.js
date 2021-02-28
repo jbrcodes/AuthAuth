@@ -29,7 +29,6 @@ function LoginView(props) {
             <div className="col-4 offset-4">
                 <h2>Login</h2>
                 
-                {/* Login error message displayed here */}
                 {
                     props.error && (
                         <div className="alert alert-danger">{props.error}</div>

@@ -44,12 +44,14 @@ router.post('/login', async (req, res, next) => {
             let passwordsEqual = await bcrypt.compare(password, row.password);
             if (passwordsEqual) {
                 let payload = { userId: row.id };
-                // Create & return token (and user ID, useful for the client)
+                // Create token containing user ID
                 let token = jwt.sign(payload, SECRET_KEY);
+                // Also return user (without password)
+                delete row.password;
                 res.send({
                     message: 'Login succeeded',
                     token: token,
-                    userId: row.id
+                    user: row
                 });
             } else {
                 // Passwords don't match

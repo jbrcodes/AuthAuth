@@ -4,7 +4,7 @@ NOTES
 
 ## To Do
 
-- move profile to right, make it Profile (user1)
+- add selectedClass to NavBar
 - clean up <PrivateRoute> and LoggedInRoute
 - document code & install
 - add proxy 5000 to package.json ? Or SERVER_URL?

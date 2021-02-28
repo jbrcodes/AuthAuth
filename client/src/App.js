@@ -16,15 +16,15 @@ import UsersView from './components/UsersView';
 
 
 function App() {
-    const [userId, setUserId] = useState(Local.getUserId());
+    const [user, setUser] = useState(Local.getUser());
     const [flashError, setFlashError] = useState('');
     const history = useHistory();
 
     async function doLogin(username, password) {
         let response = await Api.loginUser(username, password);
         if (response.ok) {
-            Local.saveUserInfo(response.data.token, response.data.userId);
-            setUserId(response.data.userId);
+            Local.saveUserInfo(response.data.token, response.data.user);
+            setUser(response.data.user);
             setFlashError('');
             history.push('/');
         } else {
@@ -34,13 +34,13 @@ function App() {
 
     function doLogout() {
         Local.removeUserInfo();  // remove token/userId from localStorage
-        setUserId('');
+        setUser(null);
         history.push('/');
     }
 
     return (
         <div className="App">
-            <NavBar userId={userId} logout={doLogout} />
+            <NavBar user={user} logout={doLogout} />
 
             <div className="container">
                 <Switch>

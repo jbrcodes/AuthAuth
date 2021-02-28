@@ -21,15 +21,10 @@ function NavBar(props) {
                         <NavLink className="nav-link" to="/users" exact>Users</NavLink>
                     </li>
                     {
-                        props.userId && (
-                            <>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.userId}`}>Profile</NavLink>
-                                </li>
-                            </>
+                        props.user && (
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
+                            </li>
                         )
                     }
 
@@ -38,10 +33,13 @@ function NavBar(props) {
 
             {/* Right-aligned menu items */}
             {
-                props.userId
+                props.user
                     ?   
                         (
                             <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
+                                </li>
                                 <li className="nav-item">
                                     <span
                                         className="nav-link" 

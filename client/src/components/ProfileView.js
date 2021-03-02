@@ -5,7 +5,7 @@ import Api from '../helpers/Api';
 
 function ProfileView(props) {
     const [user, setUser] = useState(null);
-    const [error, setError] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
     let { userId } = useParams();
 
     useEffect(() => {
@@ -13,17 +13,17 @@ function ProfileView(props) {
             let response = await Api.getUser(userId);
             if (response.ok) {
                 setUser(response.data);
-                setError('');
+                setErrorMsg('');
             } else {
                 setUser(null);
-                setError(response.error);
+                setErrorMsg(response.error);
             }
         }
         fetchProfile();
     }, [userId]);
 
-    if (error) {
-        return <h2 style={{ color: 'red' }}>{error}</h2>
+    if (errorMsg) {
+        return <h2 style={{ color: 'red' }}>{errorMsg}</h2>
     }
 
     if (!user) {

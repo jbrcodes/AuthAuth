@@ -19,12 +19,6 @@ class Api {
             body: JSON.stringify(body)
         };
 
-        // Add JWT token (if it exists)
-        let token = Local.getToken();
-        if (token) {
-            options.headers['x-access-token'] = token;
-        }
-
         // Fetch!
         let response;
         try {
@@ -106,7 +100,7 @@ class Api {
         let url = `${BASE_URL}${route}`;
         let options = { method: 'GET', headers: {} };
 
-        // Add JWT token (if it exists)
+        // Add JWT token (if it exists); content might be protected
         let token = Local.getToken();
         if (token) {
             options.headers['x-access-token'] = token;

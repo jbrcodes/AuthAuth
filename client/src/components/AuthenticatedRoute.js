@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import Local from '../helpers/Local';
 
 
-function PrivateRoute(props) {
+function AuthenticatedRoute(props) {
     let userId = Local.getUserId();
     if (!userId) {
         return <Redirect to="/login" />;
@@ -16,4 +16,4 @@ function PrivateRoute(props) {
     );
 }
 
-export default PrivateRoute;
+export default AuthenticatedRoute;

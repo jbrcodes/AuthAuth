@@ -6,7 +6,7 @@ import Local from './helpers/Local';
 import Api from './helpers/Api';
 
 import NavBar from './components/NavBar';
-import PrivateRoute from './components/PrivateRoute';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 import LoginView from './components/LoginView';
 import ErrorView from './components/ErrorView';
@@ -17,7 +17,7 @@ import UsersView from './components/UsersView';
 
 function App() {
     const [user, setUser] = useState(Local.getUser());
-    const [flashError, setFlashError] = useState('');
+    const [loginErrorMsg, setLoginErrorMsg] = useState('');
     const history = useHistory();
 
     async function doLogin(username, password) {
@@ -25,10 +25,10 @@ function App() {
         if (response.ok) {
             Local.saveUserInfo(response.data.token, response.data.user);
             setUser(response.data.user);
-            setFlashError('');
+            setLoginErrorMsg('');
             history.push('/');
         } else {
-            setFlashError('Login failed');
+            setLoginErrorMsg('Login failed');
         }
     }
 
@@ -40,7 +40,7 @@ function App() {
 
     return (
         <div className="App">
-            <NavBar user={user} logout={doLogout} />
+            <NavBar user={user} onLogout={doLogout} />
 
             <div className="container">
                 <Switch>
@@ -52,22 +52,22 @@ function App() {
                         <UsersView />
                     </Route>
 
-                    <PrivateRoute path="/users/:userId" exact>
+                    <AuthenticatedRoute path="/users/:userId" exact>
                         <ProfileView />
-                    </PrivateRoute>
+                    </AuthenticatedRoute>
 
-                    <PrivateRoute path="/members-only" exact>
+                    <AuthenticatedRoute path="/members-only" exact>
                         <MembersOnlyView />
-                    </PrivateRoute>
+                    </AuthenticatedRoute>
 
                     <Route path="/login" exact>
                         <LoginView 
                             onSubmit={(u, p) => doLogin(u, p)} 
-                            error={flashError} 
+                            error={loginErrorMsg} 
                         />
                     </Route>
 
-                    <ErrorView code="404" text="Not Found" />
+                    <ErrorView code="404" text="Page Not Found" />
                 </Switch>
             </div>
         </div>

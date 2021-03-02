@@ -14,20 +14,19 @@ function NavBar(props) {
             {/* Left-aligned menu items */}
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    <li className="nav-item active">
-                        <NavLink className="nav-link" to="/">Home</NavLink>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to="/" exact>Home</NavLink>
                     </li>
-                    <li className="nav-item active">
-                        <NavLink className="nav-link" to="/users" exact>Users</NavLink>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to="/users" exact>Users</NavLink>
                     </li>
                     {
                         props.user && (
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/members-only">Members Only</NavLink>
                             </li>
                         )
                     }
-
                 </ul>
             </div>
 
@@ -38,14 +37,11 @@ function NavBar(props) {
                         (
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
+                                    <NavLink className="nav-link" activeClassName="active" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <span
-                                        className="nav-link" 
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={props.logout}
-                                    >Logout</span>
+                                    {/* Simulate <NavLink>, which requires 'to' attribute */}
+                                    <span className="nav-link" style={{ cursor: 'pointer' }} onClick={props.logout}>Logout</span>
                                 </li>
                             </ul>
                         )

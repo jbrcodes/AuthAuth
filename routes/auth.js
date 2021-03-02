@@ -40,18 +40,19 @@ router.post('/login', async (req, res, next) => {
             // Username not found
             res.status(400).send({ error: 'Login failed' });
         } else {
-            let row = results.data[0];  // the user's row/record from the DB
-            let passwordsEqual = await bcrypt.compare(password, row.password);
+            let user = results.data[0];  // the user's row/record from the DB
+            let passwordsEqual = await bcrypt.compare(password, user.password);
             if (passwordsEqual) {
-                let payload = { userId: row.id };
+                // Passwords match
+                let payload = { userId: user.id };
                 // Create token containing user ID
                 let token = jwt.sign(payload, SECRET_KEY);
                 // Also return user (without password)
-                delete row.password;
+                delete user.password;
                 res.send({
                     message: 'Login succeeded',
                     token: token,
-                    user: row
+                    user: user
                 });
             } else {
                 // Passwords don't match

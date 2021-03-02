@@ -8,6 +8,7 @@ function MembersOnlyView(props) {
 
     useEffect(() => {
         async function fetchMemberMsg() {
+            // Get "Members Only" message for authenticated users
             let response = await Api.getContent('/members-only');
             if (response.ok) {
                 setMemberMsg(response.data.message);

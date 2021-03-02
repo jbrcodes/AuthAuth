@@ -17,7 +17,7 @@ function ensureUserLoggedIn(req, res, next) {
     try {
         // Throws error on invalid/missing token
         jwt.verify(token, SECRET_KEY);
-        // If we get here, valid token passed
+        // If we get here, a valid token was passed
         next();
     } catch (err) {
         res.status(401).send({ error: 'Unauthorized' });
@@ -36,10 +36,11 @@ function ensureSameUser(req, res, next) {
     try {
         // Throws error on invalid/missing token
         let payload = jwt.verify(token, SECRET_KEY);
-        if (payload.userId !== Number(req.params.userId)) {
-            res.status(401).send({ error: 'Unauthorized' });
-        } else {
+        // If we get here, a valid token was passed
+        if (payload.userId === Number(req.params.userId)) {
             next();
+        } else {
+            res.status(401).send({ error: 'Unauthorized' });
         }
     } catch (err) {
         res.status(401).send({ error: 'Unauthorized' });

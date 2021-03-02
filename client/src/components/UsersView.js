@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
 import Api from '../helpers/Api';
 
 
@@ -34,7 +33,7 @@ function UsersView(props) {
             <h1>Users</h1>
             <ul>
             {
-                users.map(u => <li key={u.id}>{u.username} / {u.email}</li>)
+                users.map(u => <li key={u.id}>{u.username}</li>)
             }
             </ul>
         </div>

@@ -11,10 +11,11 @@ const db = require("../model/helper");
 
 router.get('/', async function(req, res, next) {
     let sql = 'SELECT * FROM users ORDER BY username';
+
     try {
         let results = await db(sql);
         let users = results.data;
-        users.forEach(u => delete u.password);  // don't send passwords
+        users.forEach(u => delete u.password);  // don't return passwords
         res.send(users);
     } catch (err) {
         next(err);
@@ -24,7 +25,7 @@ router.get('/', async function(req, res, next) {
 
 /**
  * Get one user.
- * A user can only see his/her own profile page.
+ * A user can only see his/her own profile info.
  **/
 
 router.get('/:userId', ensureSameUser, async function(req, res, next) {
@@ -34,7 +35,7 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
     try {
         let results = await db(sql);
         let user = results.data[0];
-        delete user.password;  // don't return the (hashed) password
+        delete user.password;  // don't return the password
         res.send(user);
     } catch (err) {
         next(err);

@@ -92,7 +92,7 @@ class Api {
     }
 
     /**
-     * General purpose GET
+     * General purpose GET (for routes like /members-only)
      */
 
     static async getContent(route) {
@@ -100,7 +100,7 @@ class Api {
         let url = `${BASE_URL}${route}`;
         let options = { method: 'GET', headers: {} };
 
-        // Add JWT token (if it exists); content might be protected
+        // Add JWT token (if it exists) in case content is protected
         let token = Local.getToken();
         if (token) {
             options.headers['x-access-token'] = token;

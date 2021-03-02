@@ -4,11 +4,13 @@ import Local from '../helpers/Local';
 
 
 function AuthenticatedRoute(props) {
+    // Redirect to /login if anonymous user
     let userId = Local.getUserId();
     if (!userId) {
         return <Redirect to="/login" />;
     }
 
+    // Render <Route> containing child component(s)
     return (
         <Route exact path={props.path}>
             {props.children}

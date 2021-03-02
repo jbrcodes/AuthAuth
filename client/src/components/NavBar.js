@@ -11,7 +11,7 @@ function NavBar(props) {
                 <span className="navbar-toggler-icon"></span>
             </button>
 
-            {/* Left-aligned menu items */}
+            {/* Left-aligned stuff */}
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item">
@@ -30,7 +30,7 @@ function NavBar(props) {
                 </ul>
             </div>
 
-            {/* Right-aligned menu items */}
+            {/* Right-aligned stuff */}
             {
                 props.user
                     ?   
@@ -40,7 +40,7 @@ function NavBar(props) {
                                     <NavLink className="nav-link" activeClassName="active" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    {/* Simulate <NavLink>, which requires 'to' attribute */}
+                                    {/* Simulate <NavLink> (it requires 'to' attribute, but we don't have one) */}
                                     <span className="nav-link" style={{ cursor: 'pointer' }} onClick={props.onLogout}>Logout</span>
                                 </li>
                             </ul>

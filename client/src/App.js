@@ -33,7 +33,7 @@ function App() {
     }
 
     function doLogout() {
-        Local.removeUserInfo();  // remove token/userId from localStorage
+        Local.removeUserInfo();
         setUser(null);
         history.push('/');
     }

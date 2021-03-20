@@ -7,7 +7,6 @@ import Api from './helpers/Api';
 
 import NavBar from './components/NavBar';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-
 import LoginView from './components/LoginView';
 import ErrorView from './components/ErrorView';
 import MembersOnlyView from './components/MembersOnlyView';

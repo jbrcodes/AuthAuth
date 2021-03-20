@@ -8,7 +8,7 @@ const { ensureUserLoggedIn } = require('../middleware/guards');
  **/
 
 router.get('/', function(req, res, next) {
-    res.send({ message: 'Welcome to the AuthAuth homepage!' });
+    res.send({ message: 'Welcome to the AuthAuth homepage! Try /users' });
 });
 
 

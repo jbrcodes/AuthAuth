@@ -1,3 +1,20 @@
+--
+-- (Re)create table(s)
+--
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    password VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL
+);
+
+
+--
+-- Insert sample/seed data
+--
+
 -- user1 has password pass1 (etc)
 INSERT INTO `users` VALUES 
     (1,'user1','$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W','user1@acme.com'),

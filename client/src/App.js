@@ -66,7 +66,7 @@ function App() {
                         />
                     </Route>
 
-                    <ErrorView code="404" text="Page Not Found" />
+                    <ErrorView code="404" text="Page not found" />
                 </Switch>
             </div>
         </div>

@@ -12,7 +12,8 @@ const { SECRET_KEY } = require("../config");
  **/
 
 function ensureUserLoggedIn(req, res, next) {
-    let token = req.headers['x-access-token'];
+    console.log('ensureUserLoggedIn');
+    let token = _getToken(req);
 
     try {
         // Throws error on invalid/missing token
@@ -31,7 +32,7 @@ function ensureUserLoggedIn(req, res, next) {
  **/
 
 function ensureSameUser(req, res, next) {
-    let token = req.headers['x-access-token'];
+    let token = _getToken(req);
 
     try {
         // Throws error on invalid/missing token
@@ -45,6 +46,26 @@ function ensureSameUser(req, res, next) {
     } catch (err) {
         res.status(401).send({ error: 'Unauthorized' });
     }
+}
+
+
+/**
+ * Return the JWT token if found, else return ''
+ **/
+
+function _getToken(req) {
+    // Expected header: "authorization: Bearer <token>"
+
+    // Return '' if header not found
+    if ( !('authorization' in req.headers) ) {
+        return '';
+    }
+
+    // Split header into 'Bearer' and token
+    let authHeader = req.headers['authorization'];
+    let [str, token] = authHeader.split(' ');
+
+    return (str === 'Bearer') ? token : '';
 }
 
 

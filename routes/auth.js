@@ -38,7 +38,7 @@ router.post('/login', async (req, res, next) => {
         let results = await db(`SELECT * FROM users WHERE username = '${username}'`);
         if (results.data.length === 0) {
             // Username not found
-            res.status(400).send({ error: 'Login failed' });
+            res.status(401).send({ error: 'Login failed' });
         } else {
             let user = results.data[0];  // the user's row/record from the DB
             let passwordsEqual = await bcrypt.compare(password, user.password);
@@ -56,7 +56,7 @@ router.post('/login', async (req, res, next) => {
                 });
             } else {
                 // Passwords don't match
-                res.status(400).send({ error: 'Login failed' });
+                res.status(401).send({ error: 'Login failed' });
             }
         }
     } catch (err) {

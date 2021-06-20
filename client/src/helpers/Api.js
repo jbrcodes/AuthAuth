@@ -1,7 +1,6 @@
 import Local from './Local';
 
 
-const BASE_URL = '';  // 'http://localhost:5000';
 
 class Api {
 
@@ -11,7 +10,7 @@ class Api {
     
     static async loginUser(username, password) {
         // Prepare URL and options
-        let url = `${BASE_URL}/login`;
+        let url = 'login';
         let body = { username, password };
         let options = { 
             method: 'POST',
@@ -41,7 +40,7 @@ class Api {
 
     static async getUsers() {
         // Prepare URL and options
-        let url = `${BASE_URL}/users`;
+        let url = '/users';
         let options = { method: 'GET' };
 
         // Fetch!
@@ -66,7 +65,7 @@ class Api {
 
     static async getUser(userId) {
         // Prepare URL and options
-        let url = `${BASE_URL}/users/${userId}`;
+        let url = `/users/${userId}`;
         let options = { method: 'GET', headers: {} };
 
         // Add JWT token (if it exists)
@@ -97,7 +96,7 @@ class Api {
 
     static async getContent(route) {
         // Prepare URL and options
-        let url = `${BASE_URL}${route}`;
+        let url = route;
         let options = { method: 'GET', headers: {} };
 
         // Add JWT token (if it exists) in case content is protected

@@ -3,7 +3,7 @@ const { SECRET_KEY } = require("../config");
 
 
 /**
- * Guards are middleware that "protect" routes from unauthorized access.
+ * Guards are middleware that "protect" routes.
  **/
 
 
@@ -12,7 +12,6 @@ const { SECRET_KEY } = require("../config");
  **/
 
 function ensureUserLoggedIn(req, res, next) {
-    console.log('ensureUserLoggedIn');
     let token = _getToken(req);
 
     try {
@@ -51,11 +50,10 @@ function ensureSameUser(req, res, next) {
 
 /**
  * Return the JWT token if found, else return ''
+ * Authorization header string looks like: "Bearer <token>"
  **/
 
 function _getToken(req) {
-    // Expected header: "authorization: Bearer <token>"
-
     // Return '' if header not found
     if ( !('authorization' in req.headers) ) {
         return '';

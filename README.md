@@ -4,8 +4,8 @@ Demo: Authentication & Authorization
 ## Summary
 
 This repo shows how to do very simple auth/auth
-(authentication and authorization) in both the back-end
-and front-end.
+(authentication and authorization) in both the back end
+and front end.
 
 
 ## Auth/Auth-Specific Technologies Used

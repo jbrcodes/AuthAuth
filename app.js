@@ -18,23 +18,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Location of static assets
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Routes
 app.use('/', authRouter); 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// Respond with index.html for unmatched routes
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + 'client/build/index.html'));
-});
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
 });
+
 
 // General error handler
 app.use(function(err, req, res, next) {

@@ -21,7 +21,7 @@ function LoginView(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.onSubmit(username, password);
+        props.loginCb(username, password);
     }
 
     return (
@@ -30,8 +30,8 @@ function LoginView(props) {
                 <h2>Login</h2>
                 
                 {
-                    props.error && (
-                        <div className="alert alert-danger">{props.error}</div>
+                    props.loginError && (
+                        <div className="alert alert-danger">{props.loginError}</div>
                     )
                 }
 

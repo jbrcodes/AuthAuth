@@ -41,7 +41,7 @@ function NavBar(props) {
                                 </li>
                                 <li className="nav-item">
                                     {/* Simulate <NavLink> (it requires 'to' attribute, but we don't have one) */}
-                                    <span className="nav-link" style={{ cursor: 'pointer' }} onClick={props.onLogout}>Logout</span>
+                                    <span className="nav-link" style={{ cursor: 'pointer' }} onClick={props.logoutCb}>Logout</span>
                                 </li>
                             </ul>
                         )

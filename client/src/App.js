@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './App.css';
 
 import Local from './helpers/Local';
 import Api from './helpers/Api';
 
 import NavBar from './components/NavBar';
-import AuthenticatedRoute from './components/AuthenticatedRoute';
-import LoginView from './views/LoginView';
-import ErrorView from './views/ErrorView';
-import MembersOnlyView from './views/MembersOnlyView';
-import ProfileView from './views/ProfileView';
-import UsersView from './views/UsersView';
+import Routes from './components/Routes';
 
 
 function App() {
@@ -39,35 +34,13 @@ function App() {
 
     return (
         <div className="App">
-            <NavBar user={user} onLogout={doLogout} />
+            <NavBar user={user} logoutCb={doLogout} />
 
             <div className="container">
-                <Switch>
-                    <Route path="/" exact>
-                        <h1>Home</h1>
-                    </Route>
-
-                    <Route path="/users" exact>
-                        <UsersView />
-                    </Route>
-
-                    <AuthenticatedRoute path="/users/:userId" exact>
-                        <ProfileView />
-                    </AuthenticatedRoute>
-
-                    <AuthenticatedRoute path="/members-only" exact>
-                        <MembersOnlyView />
-                    </AuthenticatedRoute>
-
-                    <Route path="/login" exact>
-                        <LoginView 
-                            onSubmit={(u, p) => doLogin(u, p)} 
-                            error={loginErrorMsg} 
-                        />
-                    </Route>
-
-                    <ErrorView code="404" text="Page not found" />
-                </Switch>
+                <Routes
+                    loginCb={(u, p) => doLogin(u, p)}
+                    loginError={loginErrorMsg}
+                />
             </div>
         </div>
     );

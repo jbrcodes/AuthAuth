@@ -7,11 +7,11 @@ import Api from './helpers/Api';
 
 import NavBar from './components/NavBar';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import LoginView from './components/LoginView';
-import ErrorView from './components/ErrorView';
-import MembersOnlyView from './components/MembersOnlyView';
-import ProfileView from './components/ProfileView';
-import UsersView from './components/UsersView';
+import LoginView from './views/LoginView';
+import ErrorView from './views/ErrorView';
+import MembersOnlyView from './views/MembersOnlyView';
+import ProfileView from './views/ProfileView';
+import UsersView from './views/UsersView';
 
 
 function App() {

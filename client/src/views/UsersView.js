@@ -7,18 +7,19 @@ function UsersView(props) {
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
-        async function fetchUsers() {
-            let response = await Api.getUsers();
-            if (response.ok) {
-                setUsers(response.data);
-                setErrorMsg('');
-            } else {
-                setUsers([]);
-                setErrorMsg(`Error ${response.status}: ${response.statusText}`);
-            }
-        }
         fetchUsers();
     }, []);
+
+    async function fetchUsers() {
+        let response = await Api.getUsers();
+        if (response.ok) {
+            setUsers(response.data);
+            setErrorMsg('');
+        } else {
+            setUsers([]);
+            setErrorMsg(`Error ${response.status}: ${response.statusText}`);
+        }
+    }
 
     if (errorMsg) {
         return <h2 style={{ color: 'red' }}>{errorMsg}</h2>

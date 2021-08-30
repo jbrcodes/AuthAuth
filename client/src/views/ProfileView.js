@@ -9,18 +9,19 @@ function ProfileView(props) {
     let { userId } = useParams();
 
     useEffect(() => {
-        async function fetchProfile() {
-            let response = await Api.getUser(userId);
-            if (response.ok) {
-                setUser(response.data);
-                setErrorMsg('');
-            } else {
-                setUser(null);
-                setErrorMsg(response.error);
-            }
-        }
         fetchProfile();
-    }, [userId]);
+    }, []);
+
+    async function fetchProfile() {
+        let response = await Api.getUser(userId);
+        if (response.ok) {
+            setUser(response.data);
+            setErrorMsg('');
+        } else {
+            setUser(null);
+            setErrorMsg(response.error);
+        }
+    }
 
     if (errorMsg) {
         return <h2 style={{ color: 'red' }}>{errorMsg}</h2>

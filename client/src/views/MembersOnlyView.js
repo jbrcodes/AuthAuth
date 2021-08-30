@@ -7,19 +7,20 @@ function MembersOnlyView(props) {
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
-        async function fetchMemberMsg() {
-            // Get "Members Only" message for authenticated users
-            let response = await Api.getContent('/members-only');
-            if (response.ok) {
-                setMemberMsg(response.data.message);
-                setErrorMsg('');
-            } else {
-                setMemberMsg('');
-                setErrorMsg(response.error);
-            }
-        }
         fetchMemberMsg();
     }, []);
+
+    async function fetchMemberMsg() {
+        // Get "Members Only" message for authenticated users
+        let response = await Api.getContent('/members-only');
+        if (response.ok) {
+            setMemberMsg(response.data.message);
+            setErrorMsg('');
+        } else {
+            setMemberMsg('');
+            setErrorMsg(response.error);
+        }
+    }
 
     if (errorMsg) {
         return <h2 style={{ color: 'red' }}>{errorMsg}</h2>

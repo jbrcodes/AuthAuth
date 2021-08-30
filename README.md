@@ -64,6 +64,4 @@ directory (the server) and the second in the `client` directory.
 
 - The front-end uses components that do *not* store data centrally in the lowest common ancestor (commonly the App). Instead, each component fetches its own data from the server when it is mounted.
 
-- The `useEffect()` callback *cannot* be asynchronous. Therefore if we want to fetch data when the component mounts, we can get around that inconvenience by declaring an `async` function within the callback, and then call it (right after the declaration, still in the callback) *without* `await`.
-
 - "Helper" classes `Api` and `Local` place commonly-used functionality in separate files.

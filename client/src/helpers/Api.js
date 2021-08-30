@@ -71,7 +71,7 @@ class Api {
         // Add JWT token (if it exists)
         let token = Local.getToken();
         if (token) {
-            options.headers['authorization'] = 'Bearer ' + token;
+            options.headers['Authorization'] = 'Bearer ' + token;
         }
 
         // Fetch!
@@ -102,7 +102,7 @@ class Api {
         // Add JWT token (if it exists) in case content is protected
         let token = Local.getToken();
         if (token) {
-            options.headers['authorization'] = 'Bearer ' + token;
+            options.headers['Authorization'] = 'Bearer ' + token;
         }
 
         // Fetch!

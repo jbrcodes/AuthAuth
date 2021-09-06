@@ -10,7 +10,7 @@ class Api {
     
     static async loginUser(username, password) {
         // Prepare URL and options
-        let url = 'login';
+        let url = '/login';
         let body = { username, password };
         let options = { 
             method: 'POST',

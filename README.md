@@ -18,7 +18,7 @@ and front end.
 
 ### 1. Install NPM Packages
 
-Run `yarn` in both the project/repo directory as well as the `client` directory.
+Run `yarn` in both the project directory as well as the `client` directory.
 (`npm` will work as well.)
 
 ### 2. Create and Configure Database
@@ -30,7 +30,7 @@ CREATE DATABASE authauth;
 ```
 
 #### 2.2
-Initialize the DB via the shell:
+Initialize the DB via the terminal:
 ```
 node model/database.js
 ```
@@ -49,9 +49,9 @@ DB_NAME=authauth
 
 ## Running the Demo
 
-To run just the back-end, use Postman (or similar) and connect to `http://localhost:5000`.
-To run both front- and back-ends, 
-you'll need to run `yarn start` in two different shells, the first in the project
+To run just the back end, use Postman (or similar) and connect to `http://localhost:5000`.
+To run both front and back ends, 
+you'll need to run `yarn start` in two different terminals, the first in the project
 directory (the server) and the second in the `client` directory.
 
 
@@ -62,6 +62,9 @@ directory (the server) and the second in the `client` directory.
 
 ## Client Notes
 
-- The front-end uses components that do *not* store data centrally in the lowest common ancestor (commonly the App). Instead, each component fetches its own data from the server when it is mounted.
+- The front end uses components that do *not* store data centrally in the lowest common ancestor (commonly the App). Instead, each component fetches its own data from the server when it is mounted.
 
 - "Helper" classes `Api` and `Local` place commonly-used functionality in separate files.
+
+<hr />
+<small>Updated: 3 Mar 2022</small>

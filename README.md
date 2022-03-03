@@ -32,15 +32,8 @@ Create a MySQL database via the MySQL CLI; we'll call our DB `authauth`.
 CREATE DATABASE authauth;
 ```
 
-#### 2.2
-Initialize the DB via the terminal, from the project directory:
-```
-node model/database.js
-```
-This creates the `users` table and inserts some sample data consisting of 3 users, 
-with usernames `user1`-`user3` and passwords `pass1`-`pass3`.
 
-#### 2.3
+#### 2.2
 Create an `.env` file in the project directory that contains connect information for the DB.
 (Your details may differ.)
 ```
@@ -50,14 +43,25 @@ DB_USER=root
 DB_PASS=root
 ```
 
+
+#### 2.3
+Initialize the DB via the terminal, from the project directory:
+```
+yarn migrate
+```
+This creates the `users` table and inserts some sample data consisting of 3 users, 
+with usernames `user1`-`user3` and passwords `pass1`-`pass3`.
+
+
+
 ## Running the Demo
 
 To run just the back end, type `yarn start` in the project directory and
 use Postman (or similar) to connect to `http://localhost:5000`.
 
-To run the front end as well, open another terminal and type `yarn start` in the client directory.
+To run the front end as well, open another terminal and type `yarn start` in the client directory,
+and point your browser at `http://localhost:3000`.
 
-There are three users `user1`-`user3` with passwords `pass1`-`pass3`.
 
 
 ## Server Notes

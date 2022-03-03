@@ -3,7 +3,7 @@ const { SECRET_KEY } = require("../config");
 
 
 /**
- * Guards are middleware that "protect" routes.
+ * Guards are middleware that "protect" route functions
  **/
 
 

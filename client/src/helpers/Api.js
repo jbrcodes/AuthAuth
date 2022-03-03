@@ -1,12 +1,18 @@
 import Local from './Local';
 
 
+/**
+ * This is a (not very DRY) helper class that places all "knowledge" of doing a fetch()
+ * in one place. Any component that needs to do a fetch() will import this class and
+ * call the corresponding method.
+ **/
+
 
 class Api {
 
     /**
-    * Log in a user
-     */
+     * Log in a user
+     **/
     
     static async loginUser(username, password) {
         // Prepare URL and options
@@ -61,7 +67,7 @@ class Api {
 
     /**
      * Get data for user with ID 'userId'
-     */
+     **/
 
     static async getUser(userId) {
         // Prepare URL and options
@@ -92,7 +98,7 @@ class Api {
 
     /**
      * General purpose GET (for routes like /members-only)
-     */
+     **/
 
     static async getContent(route) {
         // Prepare URL and options

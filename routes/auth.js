@@ -10,7 +10,7 @@ const db = require("../model/helper");
  * Register a user
  **/
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', async (req, res) => {
     let { username, password, email } = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
@@ -22,7 +22,7 @@ router.post('/register', async (req, res, next) => {
         await db(sql);
         res.send({ message: 'Registration succeeded' });
     } catch (err) {
-        next(err);
+        res.status(500).send({ error: err.message });
     }
 });
 
@@ -31,7 +31,7 @@ router.post('/register', async (req, res, next) => {
  * Log in a user
  **/
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req, res) => {
     let { username, password } = req.body;
 
     try {
@@ -60,7 +60,7 @@ router.post('/login', async (req, res, next) => {
             }
         }
     } catch (err) {
-        next(err);
+        res.status(500).send({ error: err.message });
     }
 });
 

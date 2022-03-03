@@ -35,7 +35,8 @@ function App() {
     function doLogout() {
         Local.removeUserInfo();
         setUser(null);
-        navigate('/');
+        // We don't need the next line; the Logout <NavLink> will redirect for us
+        // navigate('/');
     }
 
     return (

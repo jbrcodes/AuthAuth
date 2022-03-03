@@ -4,7 +4,6 @@ const { ensureSameUser } = require('../middleware/guards');
 const db = require("../model/helper");
 
 
-
 /**
  * Get all users
  **/
@@ -18,7 +17,7 @@ router.get('/', async function(req, res, next) {
         users.forEach(u => delete u.password);  // don't return passwords
         res.send(users);
     } catch (err) {
-        next(err);
+        res.status(500).send({ error: err.message });
     }
 });
 
@@ -34,11 +33,12 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
     
     try {
         let results = await db(sql);
+        // We know user exists because he/she is logged in!
         let user = results.data[0];
         delete user.password;  // don't return the password
         res.send(user);
     } catch (err) {
-        next(err);
+        res.status(500).send({ error: err.message });
     }
 });
 

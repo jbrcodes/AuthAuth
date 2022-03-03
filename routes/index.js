@@ -7,7 +7,7 @@ const { ensureUserLoggedIn } = require('../middleware/guards');
  * GET /
  **/
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.send({ message: 'Welcome to the AuthAuth homepage! Try /users' });
 });
 
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
  * GET /members-only
  **/
 
-router.get('/members-only', ensureUserLoggedIn, function(req, res, next) {
+router.get('/members-only', ensureUserLoggedIn, function(req, res) {
     res.send({ message: 'Here is your Members Only content from the server...' });
 });
 

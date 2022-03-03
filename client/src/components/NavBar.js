@@ -16,33 +16,33 @@ function NavBar(props) {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/" exact>Home</NavLink>
+                            <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/users" exact>Users</NavLink>
+                            <NavLink className="nav-link" to="/users">Users</NavLink>
                         </li>
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" activeClassName="active" to="/members-only">Members Only</NavLink>
+                                    <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
                                 </li>
                             )
                         }
                     </ul>
                 </div>
 
-                {/* Right-aligned stuff */}
+                {/* Right-aligned stuff, based on whether user is logged in */}
                 {
                     props.user
                         ?   
                             (
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" activeClassName="active" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
+                                        <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        {/* Simulate <NavLink> (it requires 'to' attribute, but we don't have one) */}
-                                        <span className="nav-link" style={{ cursor: 'pointer' }} onClick={props.logoutCb}>Logout</span>
+                                        {/* Log out user. Then go to home page. */}
+                                        <NavLink className="nav-link" to="/" onClick={props.logoutCb}>Logout</NavLink>
                                     </li>
                                 </ul>
                             )

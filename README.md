@@ -35,9 +35,10 @@ CREATE DATABASE authauth;
 
 #### 2.2
 Create an `.env` file in the project directory that contains connect information for the DB
-as well as a secret key for creating/verifying JSON web tokens.
-(For a production website you would use a random string generator, but for our purposes
-just write a string that can't be easily guessed, as you would/should when choosing a password.)
+as well as a *secret key* for creating/verifying JSON web tokens.
+(For a production website you would use a random string generator for the secret key, 
+but for our purposes just write a string that can't be easily guessed, 
+as you would/should do when choosing a password.)
 ```
 DB_HOST=localhost
 DB_NAME=authauth
@@ -94,4 +95,4 @@ Consider that an exercise for you. ;-)
 
 
 <hr />
-<small>Updated: 6 Mar 2022</small>
+<small>Updated: 8 Mar 2022</small>

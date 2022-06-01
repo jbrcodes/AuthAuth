@@ -2,9 +2,15 @@ import Local from './Local';
 
 
 /**
- * This is a (not very DRY) helper class that places all "knowledge" of doing a fetch()
- * in one place. Any component that needs to do a fetch() will import this class and
- * call the corresponding method.
+ * This is a helper class that places all "knowledge" about doing a fetch() in one place. 
+ * Any component that needs to do a fetch() will import this class and call the corresponding method.
+ * 
+ * All methods call the internal/private _doFetch() method, which does all the work. It returns
+ * a "unified" myresponse obj that has four properties:
+ *   ok: true if the server response is OK, false otherwise
+ *   data: the response data if OK, null otherwise
+ *   status: the response status code if the server was reached; 0 otherwise
+ *   error: the error message if there was either a server or network error, '' otherwise
  **/
 
 
@@ -15,29 +21,9 @@ class Api {
      **/
     
     static async loginUser(username, password) {
-        // Prepare URL and options
-        let url = '/login';
         let body = { username, password };
-        let options = { 
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        };
 
-        // Fetch!
-        let response;
-        try {
-            response = await fetch(url, options);
-            if (response.ok) {
-                response.data = await response.json();
-            } else {
-                response.error = `Error ${response.status}: ${response.statusText}`;
-            }
-        } catch (err) {
-            response = { ok: false, error: err.message };
-        }
-
-        return response;
+        return await this._doFetch('/login', 'POST', body);
     }
 
     /**
@@ -45,24 +31,7 @@ class Api {
      **/
 
     static async getUsers() {
-        // Prepare URL and options
-        let url = '/users';
-        let options = { method: 'GET' };
-
-        // Fetch!
-        let response;
-        try {
-            response = await fetch(url, options);
-            if (response.ok) {
-                response.data = await response.json();
-            } else {
-                response.error = `Error ${response.status}: ${response.statusText}`;
-            }
-        } catch (err) {
-            response = { ok: false, error: err.message };
-        }
-
-        return response;
+        return await this._doFetch('/users');
     }
 
     /**
@@ -70,61 +39,57 @@ class Api {
      **/
 
     static async getUser(userId) {
-        // Prepare URL and options
-        let url = `/users/${userId}`;
-        let options = { method: 'GET', headers: {} };
-
-        // Add JWT token (if it exists)
-        let token = Local.getToken();
-        if (token) {
-            options.headers['Authorization'] = 'Bearer ' + token;
-        }
-
-        // Fetch!
-        let response;
-        try {
-            response = await fetch(url, options);
-            if (response.ok) {
-                response.data = await response.json();
-            } else {
-                response.error = `Error ${response.status}: ${response.statusText}`;
-            }
-        } catch (err) {
-            response = { ok: false, error: err.message };
-        }
-
-        return response;
+        return await this._doFetch(`/users/${userId}`);
     }
 
     /**
-     * General purpose GET (for routes like /members-only)
+     * General purpose GET (for URLs like /members-only)
      **/
 
-    static async getContent(route) {
-        // Prepare URL and options
-        let url = route;
-        let options = { method: 'GET', headers: {} };
+    static async getContent(url) {
+        return await this._doFetch(url);
+    }
 
-        // Add JWT token (if it exists) in case content is protected
+    /**
+     * Private method for internal use only
+     **/
+
+    static async _doFetch(url, method = 'GET', body = null) {
+        // Prepare fetch() options
+        let options = { 
+            method,
+            headers: {}
+        };
+
+        // Add token to headers if it exists in localStorage
         let token = Local.getToken();
         if (token) {
             options.headers['Authorization'] = 'Bearer ' + token;
         }
 
-        // Fetch!
-        let response;
-        try {
-            response = await fetch(url, options);
-            if (response.ok) {
-                response.data = await response.json();
-            } else {
-                response.error = `Error ${response.status}: ${response.statusText}`;
-            }
-        } catch (err) {
-            response = { ok: false, error: err.message };
+        // Add the body if one is supplied
+        if (body) {
+            options.headers['Content-Type'] = 'application/json';
+            options.body = JSON.stringify(body);
         }
 
-        return response;
+        // Do the fetch() and store the results in a "unified" myresponse obj
+        let myresponse = { ok: false, data: null, status: 0, error: '' };
+        try {
+            let response = await fetch(url, options);
+            if (response.ok) {
+                myresponse.ok = true;
+                myresponse.data = await response.json();
+                myresponse.status = response.status;
+            } else {
+                myresponse.status = response.status;
+                myresponse.error = response.statusText;
+            }
+        } catch (err) {
+            myresponse.error = err.message;
+        }
+
+        return myresponse;
     }
 
 }

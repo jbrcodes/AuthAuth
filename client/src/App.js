@@ -21,10 +21,10 @@ function App() {
     const navigate = useNavigate();
 
     async function doLogin(username, password) {
-        let response = await Api.loginUser(username, password);
-        if (response.ok) {
-            Local.saveUserInfo(response.data.token, response.data.user);
-            setUser(response.data.user);
+        let myresponse = await Api.loginUser(username, password);
+        if (myresponse.ok) {
+            Local.saveUserInfo(myresponse.data.token, myresponse.data.user);
+            setUser(myresponse.data.user);
             setLoginErrorMsg('');
             navigate('/');
         } else {
@@ -35,8 +35,6 @@ function App() {
     function doLogout() {
         Local.removeUserInfo();
         setUser(null);
-        // We don't need the next line; the Logout <NavLink> will redirect for us
-        // navigate('/');
     }
 
     return (

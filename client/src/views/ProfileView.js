@@ -13,13 +13,13 @@ function ProfileView(props) {
     }, []);
 
     async function fetchProfile() {
-        let response = await Api.getUser(userId);
-        if (response.ok) {
-            setUser(response.data);
+        let myresponse = await Api.getUser(userId);
+        if (myresponse.ok) {
+            setUser(myresponse.data);
             setErrorMsg('');
         } else {
             setUser(null);
-            setErrorMsg(response.error);
+            setErrorMsg(myresponse.error);
         }
     }
 

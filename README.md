@@ -1,14 +1,13 @@
-Demo: Authentication & Authorization
-=====
+# Authentication & Authorization
 
-## Summary
 
-This repo shows how to do very simple auth/auth
+This demo shows how to do very simple auth/auth
 (authentication and authorization) in both the back end
 and front end.
 
 The user must be logged in to see the Members Only page,
 and a logged-in user is only allowed to see his/her own profile page.
+An anonymous user will be redirected to the login page.
 
 
 ## Auth/Auth-Specific Technologies Used
@@ -21,7 +20,7 @@ and a logged-in user is only allowed to see his/her own profile page.
 
 ### 1. Install NPM Packages
 
-Run `yarn` in both the project directory as well as the `client` directory.
+Run `yarn` in both the project directory and the `client` directory.
 (`npm` will work too.)
 
 ### 2. Create and Configure Database
@@ -74,7 +73,7 @@ These server files contain auth/auth code:
 
 - Middleware *guards* are used to provide auth/auth on individual routes. The guards are located in `middleware/guards.js`.
 - `routes/auth.js` contains registration and login routes.
-- The other routes files use middleware to protect routes.
+- The other routes files use the middleware guards to protect routes.
 
 
 
@@ -82,17 +81,23 @@ These server files contain auth/auth code:
 
 These client files contain auth/auth code:
 
-- The `Api` helper class contains all `fetch()` calls to the back end, and it adds the token to requests for protected routes.
+- The `Api` helper class contains all `fetch()` calls to the back end.
 - The `Local` helper class stores logged-in user data (including token) in `localStorage`, so that a logged-in user can come back later and still be logged in.
 - The `PrivateRoute` component, used in `App`, will redirect anonymous users to the login view.
 - The `NavBar` component shows different menu items for anonymous and logged-in users.
 
 In this demo the client does *not* store data centrally in the lowest common ancestor (commonly the `App`). 
-Instead, each component fetches its own data from the server when it is mounted.
+Instead, each component fetches its own data from the server.
 
-Although the back end supports registration and works with Postman, the front end does not have a registration form.
+The `Api` helper class has a number of advantages:
+1. It places all "knowledge" and details of `fetch()` in one file, so individual components don't need 
+to duplicate all `fetch()`-related code, making the code more DRY. It also does the second `await` for the data on a successful request.
+1. It returns something called `myresponse`, which I call a "unified" response obj with four properties: 
+`ok`, `data`, `status` and `error`. I call it "unified" because `error` will contain the error message for both server and network errors.
+
+Although the back end supports registration and you can register new users with Postman, the front end does not have a registration form.
 Consider that an exercise for you. ;-)
 
 
 <hr />
-<small>Updated: 8 Mar 2022</small>
+<small>Updated: 1 Jun 2022</small>

@@ -12,13 +12,13 @@ function MembersOnlyView(props) {
 
     async function fetchMemberMsg() {
         // Get "Members Only" message for authenticated users
-        let response = await Api.getContent('/members-only');
-        if (response.ok) {
-            setMemberMsg(response.data.message);
+        let myresponse = await Api.getContent('/members-only');
+        if (myresponse.ok) {
+            setMemberMsg(myresponse.data.message);
             setErrorMsg('');
         } else {
             setMemberMsg('');
-            setErrorMsg(response.error);
+            setErrorMsg(myresponse.error);
         }
     }
 

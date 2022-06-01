@@ -21,6 +21,7 @@ function NavBar(props) {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/users">Users</NavLink>
                         </li>
+                        {/* Only show "Members Only" if user is logged in */}
                         {
                             props.user && (
                                 <li className="nav-item">

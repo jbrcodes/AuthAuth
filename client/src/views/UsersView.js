@@ -11,13 +11,13 @@ function UsersView(props) {
     }, []);
 
     async function fetchUsers() {
-        let response = await Api.getUsers();
-        if (response.ok) {
-            setUsers(response.data);
+        let myresponse = await Api.getUsers();
+        if (myresponse.ok) {
+            setUsers(myresponse.data);
             setErrorMsg('');
         } else {
             setUsers([]);
-            setErrorMsg(`Error ${response.status}: ${response.statusText}`);
+            setErrorMsg(`Error ${myresponse.status}: ${myresponse.statusText}`);
         }
     }
 

@@ -40,7 +40,7 @@ function ensureSameUser(req, res, next) {
         if (payload.userId === Number(req.params.userId)) {
             next();
         } else {
-            res.status(401).send({ error: 'Unauthorized' });
+            res.status(403).send({ error: 'Forbidden' });
         }
     } catch (err) {
         res.status(401).send({ error: 'Unauthorized' });

@@ -66,6 +66,11 @@ To run the front end as well, open another terminal and type `yarn start` in the
 and point your browser at `http://localhost:3000`.
 
 
+## Branches
+
+- `final`: The finished demo
+- `starter`: The starting point for adding login behavior to front/back ends
+
 
 ## Server Notes
 

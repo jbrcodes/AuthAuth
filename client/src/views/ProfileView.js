@@ -19,7 +19,8 @@ function ProfileView(props) {
             setErrorMsg('');
         } else {
             setUser(null);
-            setErrorMsg(myresponse.error);
+            let msg = `Error ${myresponse.status}: ${myresponse.error}`;
+            setErrorMsg(msg);
         }
     }
 

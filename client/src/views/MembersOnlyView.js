@@ -18,7 +18,8 @@ function MembersOnlyView(props) {
             setErrorMsg('');
         } else {
             setMemberMsg('');
-            setErrorMsg(myresponse.error);
+            let msg = `Error ${myresponse.status}: ${myresponse.error}`;
+            setErrorMsg(msg);
         }
     }
 

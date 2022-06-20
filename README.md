@@ -20,8 +20,8 @@ An anonymous user will be redirected to the login page.
 
 ### 1. Install NPM Packages
 
-Run `yarn` in both the project directory and the `client` directory.
-(`npm` will work too.)
+Type `npm install` in both the project `client` directories
+to install dependencies.
 
 ### 2. Create and Configure Database
 
@@ -50,7 +50,7 @@ SECRET_KEY='The rain in Espanya falls mainly in the Flachland &#%'
 #### 2.3
 Initialize the DB via the terminal, from the project directory:
 ```
-yarn migrate
+npm run migrate
 ```
 This creates the `users` table and inserts some sample data consisting of 3 users, 
 with usernames `user1`-`user3` and passwords `pass1`-`pass3`.
@@ -59,10 +59,10 @@ with usernames `user1`-`user3` and passwords `pass1`-`pass3`.
 
 ## Running the Demo
 
-To run just the back end, type `yarn start` in the project directory and
+To run just the back end, type `npm start` in the project directory and
 use Postman (or similar) to connect to `http://localhost:5000`.
 
-To run the front end as well, open another terminal and type `yarn start` in the client directory,
+To run the front end as well, open another terminal and type `npm start` in the client directory,
 and point your browser at `http://localhost:3000`.
 
 
@@ -105,4 +105,4 @@ Consider that an exercise for you. ;-)
 
 
 <hr />
-<small>Updated: 1 Jun 2022</small>
+<small>Updated: 20 Jun 2022</small>

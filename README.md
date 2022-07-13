@@ -20,7 +20,7 @@ An anonymous user will be redirected to the login page.
 
 ### 1. Install NPM Packages
 
-Type `npm install` in both the project `client` directories
+Type `npm install` in both the server and client directories
 to install dependencies.
 
 ### 2. Create and Configure Database
@@ -33,7 +33,7 @@ CREATE DATABASE authauth;
 
 
 #### 2.2
-Create an `.env` file in the project directory that contains connect information for the DB
+Create an `.env` file in the server directory that contains connect information for the DB
 as well as a *secret key* for creating/verifying JSON web tokens.
 (For a production website you would use a random string generator for the secret key, 
 but for our purposes just write a string that can't be easily guessed, 
@@ -48,7 +48,7 @@ SECRET_KEY='The rain in Espanya falls mainly in the Flachland &#%'
 
 
 #### 2.3
-Initialize the DB via the terminal, from the project directory:
+Initialize the DB via the terminal, from the server directory:
 ```
 npm run migrate
 ```
@@ -59,7 +59,7 @@ with usernames `user1`-`user3` and passwords `pass1`-`pass3`.
 
 ## Running the Demo
 
-To run just the back end, type `npm start` in the project directory and
+To run just the back end, type `npm start` in the server directory and
 use Postman (or similar) to connect to `http://localhost:5000`.
 
 To run the front end as well, open another terminal and type `npm start` in the client directory,
@@ -105,4 +105,4 @@ Consider that an exercise for you. ;-)
 
 
 <hr />
-<small>Updated: 20 Jun 2022</small>
+<small>Updated: 13 July 2022</small>

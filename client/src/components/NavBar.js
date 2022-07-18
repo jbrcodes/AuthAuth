@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 
 function NavBar(props) {
@@ -43,7 +43,7 @@ function NavBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
-                                        <NavLink className="nav-link" to="/" onClick={props.logoutCb}>Logout</NavLink>
+                                        <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
                                     </li>
                                 </ul>
                             )

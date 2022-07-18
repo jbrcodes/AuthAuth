@@ -35,6 +35,7 @@ function App() {
     function doLogout() {
         Local.removeUserInfo();
         setUser(null);
+        // (NavBar will send user to home page)
     }
 
     return (
